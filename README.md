@@ -40,3 +40,8 @@ The return value should be
 ```
 OK
 ```
+
+Once you have the key, re-update Apt:
+```bash
+sudo apt update
+```
