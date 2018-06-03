@@ -40,14 +40,14 @@ RUN pip3 install redis \
     pymysql \
     pylint
     
-RUN pip3 install --upgrade https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-1.2.1-cp34-cp34m-linux_x86_64.whl
-
 # pip installs for lincs
 RUN pip install s3cmd \
     numpy \
     pandas \
     requests \
-    blessings
+    blessings \
+    matplotlib \
+    scipy
 
 # Set default contain command on run
 CMD /bin/bash
