@@ -2,7 +2,7 @@
 
 ## Just some comment
 C9NAME="caseyrhanson/opal_c9:1.0"
-C9PASS="tmppass"
+C9PASS="t"
 USERS="crhanso2 blatti"
 LOCAL_USER="tfuser"
 UPORT=8081
@@ -18,7 +18,7 @@ DOCKER_ARGS+=" -v /home/$LOCAL_USER:/workspace/$LOCAL_USER";
 for USER in $USERS; do
   ## Set up USER arguments
   USER_ARGS="  --name c9-$USER -h c9-$USER -p $UPORT:8181 -v /home/$USER:/workspace $C9NAME";
-  USER_ARGS+=" --auth $USER:$C9PASS --collab -a $USER:$C9PASS";
+  USER_ARGS+=" --auth $USER:$C9PASS";
   
   ## Run verbose 
   if [[ ! -z "$DOCKER_VERBOSE" ]]; then
