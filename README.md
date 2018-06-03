@@ -44,4 +44,15 @@ OK
 Once you have the key, re-update Apt:
 ```bash
 sudo apt update
+
 ```
+### 1.4 Install Docker Community Edition (CE)
+
+We can now install docker ce:
+
+```bash
+sudo apt install docker-ce
+```
+
+
+
