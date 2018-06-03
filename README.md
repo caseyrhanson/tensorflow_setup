@@ -126,7 +126,7 @@ for USER in $USERS; do
   USER_ARGS+=" --auth $USER:$C9PASS --collab -a $USER:$C9PASS";
   
   ## Run verbose 
-  if [ ! -z "$DOCKER_VERBOSE" ]]; then
+  if [[ ! -z "$DOCKER_VERBOSE" ]]; then
     echo "Running docker run command for $USER on $UPORT:";
     echo "  docker run -d $USER_ARGS $DOCKER_ARGS
   fi
