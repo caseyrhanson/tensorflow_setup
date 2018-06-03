@@ -95,28 +95,47 @@ docker --version
 
 Build an image from docker file
 ```
-cd docker/c9
-docker build -t opal/cloud9:1.0 ./
-docker login
-docker push opal/cloud9:1.0
-```
-# 3.0 Add Users
-## 3.1 Environment Variables
-```bash
-C9PASS="tmppass"
 C9NAME="opal/cloud9:1.0"
-USERS="crhanso2 blatti"
-UPORT=8081
-DOCKER_ARGS="  --restart=always --privileged"
-DOCKER_ARGS+=" -v /var/run/docker.sock:/var/run/docker.sock"
-DOCKER_ARGS+=" -v $(which docker):$(which docker)"
-DOCKER_ARGS+=" -v /home/tfuser:/workspace/tfuser"
+cd docker/c9
+docker build -t $C9NAME ./
+docker login
+docker push $C9NAME
+```
 
+The following script will run cloud9 instances users `crhanso2` and `blatti` on 8081 and 8082
+```bash
+
+## Basic Cloud9 parameters for users. **Note that UPORT will be incremented**.
+C9NAME="opal/cloud9:1.0"
+C9PASS="tmppass"
+USERS="crhanso2 blatti"
+LOCAL_USER="tfuser"
+UPORT=8081
+DOCKER_VERBOSE="yes"
+
+## Docker ARGS common to all users
+DOCKER_ARGS="  --restart=always --privileged";
+DOCKER_ARGS+=" -v /var/run/docker.sock:/var/run/docker.sock";
+DOCKER_ARGS+=" -v $(which docker):$(which docker)";
+DOCKER_ARGS+=" -v /home/$LOCAL_USER:/workspace/$LOCAL_USER";
+
+## Iterate over all users - in this case crhanso2 and blatti
 for USER in $USERS; do
+  ## Set up USER arguments
   USER_ARGS="  --name c9-$USER -h c9-$USER -p $UPORT:8181 -v /home/$USER:/workspace $C9NAME";
   USER_ARGS+=" --auth $USER:$C9PASS --collab -a $USER:$C9PASS";
-  docker run -d USER_ARGS $DOCKER_ARGS 
+  
+  ## Run verbose 
+  if [ ! -z "$DOCKER_VERBOSE" ]]; then
+    echo "Running docker run command for $USER on $UPORT:";
+    echo "  docker run -d $USER_ARGS $DOCKER_ARGS
+  fi
+  
+  ## Run command
+  docker run -d $USER_ARGS $DOCKER_ARGS
+  
+  ## Increment UPORT
   UPORT=`echo $UPORT | awk '{s=$1+1; print s}'`;
-    
-
-}
+ done
+ 
+ ```
