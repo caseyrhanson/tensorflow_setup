@@ -95,7 +95,7 @@ docker --version
 
 Build an image from docker file
 ```
-C9NAME="opal/cloud9:1.0"
+C9NAME="caseyrhanson/opal_c9:1.0"
 cd docker/c9
 docker build -t $C9NAME ./
 docker login
@@ -106,7 +106,7 @@ The following script will run cloud9 instances users `crhanso2` and `blatti` on 
 ```bash
 
 ## Basic Cloud9 parameters for users. **Note that UPORT will be incremented**.
-C9NAME="opal/cloud9:1.0"
+C9NAME="caseyrhanson/opal_c9:1.0"
 C9PASS="tmppass"
 USERS="crhanso2 blatti"
 LOCAL_USER="tfuser"
