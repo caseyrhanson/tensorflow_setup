@@ -89,3 +89,5 @@ apt-cache policy docker-ce
 sudo apt-get install -y docker-ce
 docker --version
 ```
+
+# 2.0 Build Images
