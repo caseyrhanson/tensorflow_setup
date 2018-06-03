@@ -91,3 +91,12 @@ docker --version
 ```
 
 # 2.0 Build Images
+## 2.1 Cloud9
+
+Build an image from docker file
+```
+cd docker/c9
+docker build -t opal/cloud9:1.0 ./
+docker login
+docker push opal/cloud9:1.0
+```
