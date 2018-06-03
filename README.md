@@ -23,3 +23,14 @@ deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic edge
 NIGHTLY:
 deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic nightly
 ```
+
+For example:
+```
+sudo echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable" >> /etc/apt/sources.list.d/docker.list
+```
+
+### 1.3 Add GPG Key
+
+```
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+```
