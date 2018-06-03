@@ -91,50 +91,68 @@ docker --version
 ```
 
 # 2.0 Build Images
-## 2.1 Cloud9
+## 2.1 Build Cloud9
 
 Build an image from docker file
 ```
-C9NAME="caseyrhanson/opal_c9:1.0"
+IMAGE="caseyrhanson/opal_c9:1.0"
 cd docker/c9
-docker build -t $C9NAME ./
+docker build -t $IMAGE ./
 docker login
-docker push $C9NAME
+docker push $IMAGEE
 ```
 
+## 2.2 Prepping `workspace`
+The `workspace` directory will hold each individual c9 home directory.
+
+For example, for `crhanso2`, his directory will be located at `/workspace/crhanso2` on the machine, but will be mounted '/workspace' within his cloud9. 
+
+The `workspace/tfuser` directory will hold the shared space. This will be mounted as `/workspace/home` for each cloud9 user.
+
+To ensure that the user `tfuser` loads into this space, create a  `/workspace/tfuser` and softlink `/home/tfuser` -> `/workspace/tfuser`.
+
+This way, `tfuser` will ssh into the shared space.
+
+```
+sudo mkdir -p /workspace/tfuser
+sudo ln -s /workspace/tfuser /home
+```
+
+## 2.3 Run Cloud9
 The following script will run cloud9 instances users `crhanso2` and `blatti` on 8081 and 8082
 ```bash
-
 ## Basic Cloud9 parameters for users. **Note that UPORT will be incremented**.
-C9NAME="caseyrhanson/opal_c9:1.0"
+IMAGE="caseyrhanson/opal_c9:1.0"
 C9PASS="t"
 USERS="crhanso2 blatti"
-LOCAL_USER="tfuser"
 UPORT=8081
 DOCKER_VERBOSE="yes"
 
 ## Docker ARGS common to all users
-DOCKER_ARGS="--restart=always --privileged";
-DOCKER_ARGS+=" -v /var/run/docker.sock:/var/run/docker.sock";
-DOCKER_ARGS+=" -v $(which docker):$(which docker)";
-DOCKER_ARGS+=" -v /home/$LOCAL_USER:/workspace/home/$LOCAL_USER";
+OPTIONS="-d --restart=always --privileged";
+VOLUMES="-v /var/run/docker.sock:/var/run/docker.sock";
+VOLUMES+=" -v $(which docker):$(which docker)";
+VOLUMES+=" -v /workspace/tfuser:/workspace/home";
 
 ## Iterate over all users - in this case crhanso2 and blatti
 for USER in $USERS; do
   ## Set up USER arguments
-  USER_ARGS="--name c9-$USER -h c9-$USER -p $UPORT:8181 -v /home/$USER:/workspace $C9NAME";
-  USER_ARGS+=" --auth $USER:$C9PASS"
+  USER_VOLUMES=" -v /workspace/$USER:/workspace $VOLUMES";
+  USER_OPTIONS="$OPTIONS --name c9-$USER -h c9-$USER -p $UPORT:8181 $USER_VOLUMES";
+	COMMAND="--auth $USER:$C9PASS";
   
   ## Run verbose 
   if [[ ! -z "$DOCKER_VERBOSE" ]]; then
-    echo "docker run -d $USER_ARGS $DOCKER_ARGS";
+    echo "docker run $USER_OPTIONS $IMAGE $COMMAND";
   fi
   
   ## Run command
-  docker run -d $USER_ARGS $DOCKER_ARGS
+  docker run $USER_OPTIONS $IMAGE $COMMAND;
   
   ## Increment UPORT
   UPORT=`echo $UPORT | awk '{s=$1+1; print s}'`;
  done
- 
  ```
+
+## 2.3 Link Directories
+ln -s /workspace/home/tfuser/ /home/
