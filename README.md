@@ -1,21 +1,25 @@
 # Installing Docker on Ubuntu 10.04
 
-## 1.0 Get Certificates
+## 1.0 Download Docker
+
 Following the example here: https://linuxconfig.org/how-to-install-docker-on-ubuntu-18-04-bionic-beaver
+
+### 1.1 Get Certificates
 
 ```
 sudo apt update
 
 sudo apt install apt-transport-https ca-certificates curl software-properties-common
 ```
+### 1.2 Bionic stable, edge, nightly builds to sources.list
 
 Create a new file for the Docker repository at /etc/apt/sources.list.d/docker.list. In that file, place one of the following lines choosing either stable, nightly or edge builds:
 
-### Bionic stable, edge, nightly builds
-Please check availabilty before using:
-deb [arch=amd64]
-
-1. STABLE (NOT YET AVAILABLE!): https://download.docker.com/linux/ubuntu 
-2. EDGE: https://download.docker.com/linux/ubuntu 
-3. NIGHTLY:https://download.docker.com/linux/ubuntu
-````
+```
+STABLE (NOT YET AVAILABLE!), please check availabilty before using:
+deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable
+EDGE:
+deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic edge
+NIGHTLY:
+deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic nightly
+```
