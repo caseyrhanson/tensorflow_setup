@@ -107,7 +107,7 @@ The following script will run cloud9 instances users `crhanso2` and `blatti` on 
 
 ## Basic Cloud9 parameters for users. **Note that UPORT will be incremented**.
 C9NAME="caseyrhanson/opal_c9:1.0"
-C9PASS="tmppass"
+C9PASS="t"
 USERS="crhanso2 blatti"
 LOCAL_USER="tfuser"
 UPORT=8081
@@ -117,7 +117,7 @@ DOCKER_VERBOSE="yes"
 DOCKER_ARGS="--restart=always --privileged";
 DOCKER_ARGS+=" -v /var/run/docker.sock:/var/run/docker.sock";
 DOCKER_ARGS+=" -v $(which docker):$(which docker)";
-DOCKER_ARGS+=" -v /home/$LOCAL_USER:/workspace/$LOCAL_USER";
+DOCKER_ARGS+=" -v /home/$LOCAL_USER:/workspace/home/$LOCAL_USER";
 
 ## Iterate over all users - in this case crhanso2 and blatti
 for USER in $USERS; do
@@ -127,8 +127,7 @@ for USER in $USERS; do
   
   ## Run verbose 
   if [[ ! -z "$DOCKER_VERBOSE" ]]; then
-    echo "Running docker run command for $USER on $UPORT:";
-    echo "  docker run -d $USER_ARGS $DOCKER_ARGS";
+    echo "docker run -d $USER_ARGS $DOCKER_ARGS";
   fi
   
   ## Run command
