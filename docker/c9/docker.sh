@@ -1,5 +1,6 @@
 #!/bin/sh
 
+## Just some comment
 C9NAME="caseyrhanson/opal_c9:1.0"
 C9PASS="tmppass"
 USERS="crhanso2 blatti"
