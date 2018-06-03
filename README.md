@@ -13,7 +13,7 @@ sudo apt install apt-transport-https ca-certificates curl software-properties-co
 ```
 ### 1.2 Bionic stable, edge, nightly builds to sources.list
 
-Create a new file for the Docker repository at /etc/apt/sources.list.d/docker.list. In that file, place one of the following lines choosing either stable, nightly or edge builds:
+Create a new file for the Docker repository at `/etc/apt/sources.list.d/docker.list`. In that file, place one of the following lines choosing either stable, nightly or edge builds:
 
 ```
 STABLE (NOT YET AVAILABLE!), please check availabilty before using:
