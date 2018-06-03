@@ -123,7 +123,7 @@ DOCKER_ARGS+=" -v /home/$LOCAL_USER:/workspace/$LOCAL_USER";
 for USER in $USERS; do
   ## Set up USER arguments
   USER_ARGS="--name c9-$USER -h c9-$USER -p $UPORT:8181 -v /home/$USER:/workspace $C9NAME";
-  USER_ARGS+=" --auth $USER:$C9PASS --collab -a $USER:$C9PASS";
+  USER_ARGS+=" --auth $USER:$C9PASS"
   
   ## Run verbose 
   if [[ ! -z "$DOCKER_VERBOSE" ]]; then
