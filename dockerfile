@@ -1,0 +1,56 @@
+############################################################
+# Dockerfile to build p1_cloud9
+############################################################
+
+# Set the base image
+FROM sapk/cloud9
+
+# File Author / Maintainer
+MAINTAINERS Charles Blatti, Casey Hanson
+
+# Update the repository sources list
+RUN apt-get update && apt-get install -y time \
+    wget \
+    curl \
+    man \
+    git \
+    lxc \
+    libsystemd-journal0 \
+    libltdl7 \
+    bash-completion \
+    sshfs \
+    vim \
+    mysql-client \
+    redis-tools \
+    python-dev \
+    python-pip \
+    python-tables \
+    python3 \
+    python3-dev \
+    python3-pip \
+    pylint \
+    r-base \
+    r-base-dev
+
+# pip3 install for db connectors
+RUN pip3 install https://cdn.mysql.com/Downloads/Connector-Python/mysql-connector-python-2.0.4.tar.gz
+RUN pip3 install redis \
+    Sphinx \
+    elasticsearch \
+    pymysql \
+    pylint
+    
+RUN pip3 install --upgrade https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-1.2.1-cp34-cp34m-linux_x86_64.whl
+
+# pip installs for lincs
+RUN pip install s3cmd \
+    numpy \
+    pandas \
+    requests \
+    blessings
+
+# Set default contain command on run
+CMD /bin/bash
+
+# Set container execution behavior
+# ENTRYPOINT
