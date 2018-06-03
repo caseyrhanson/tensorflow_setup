@@ -51,7 +51,7 @@ Once you have the key, re-update Apt:
 sudo apt-get update
 ```
 
-*** Optional: Check apt-policy***
+*Optional: Check apt-policy*
 The `apt-cache policy` comamnd displays the priorities of package sources as well as those of individual packages
 ```bash
 apt-cache policy docker-ce
@@ -107,15 +107,10 @@ The `workspace` directory will hold each individual c9 home directory.
 
 For example, for `crhanso2`, his directory will be located at `/workspace/crhanso2` on the machine, but will be mounted '/workspace' within his cloud9. 
 
-The `workspace/tfuser` directory will hold the shared space. This will be mounted as `/workspace/home` for each cloud9 user.
-
-To ensure that the user `tfuser` loads into this space, create a  `/workspace/tfuser` and softlink `/home/tfuser` -> `/workspace/tfuser`.
-
-This way, `tfuser` will ssh into the shared space.
+The `workspace/shared` directory will hold the shared space. This will be mounted as `/workspace/shared` for each cloud9 user.
 
 ```
-sudo mkdir -p /workspace/tfuser
-sudo ln -s /workspace/tfuser /home
+sudo mkdir -p /workspace/shared
 ```
 
 ## 2.3 Run Cloud9
@@ -123,7 +118,7 @@ The following script will run cloud9 instances users `crhanso2` and `blatti` on 
 ```bash
 ## Basic Cloud9 parameters for users. **Note that UPORT will be incremented**.
 IMAGE="caseyrhanson/opal_c9:1.0"
-C9PASS="t"
+C9PASS="tmppass"
 USERS="crhanso2 blatti"
 UPORT=8081
 DOCKER_VERBOSE="yes"
@@ -132,16 +127,17 @@ DOCKER_VERBOSE="yes"
 OPTIONS="-d --restart=always --privileged";
 VOLUMES="-v /var/run/docker.sock:/var/run/docker.sock";
 VOLUMES+=" -v $(which docker):$(which docker)";
-VOLUMES+=" -v /workspace/shared:/workspace/shared";
+VOLUMES+=" -v /home/:/workspace/home/";
+VOLUMES+=" -v /mnt/:/workspace/mnt/";
 
 ## Iterate over all users - in this case crhanso2 and blatti
 for USER in $USERS; do
   ## Set up USER arguments
-  USER_VOLUMES=" -v /workspace/$USER:/workspace $VOLUMES";
+  USER_VOLUMES=" -v /home/$USER/:/workspace/ $VOLUMES";
   USER_OPTIONS="$OPTIONS --name c9-$USER -h c9-$USER -p $UPORT:8181 $USER_VOLUMES";
 	COMMAND="--auth $USER:$C9PASS";
   
-  ## Run verbose 
+  ## Run verbose  output
   if [[ ! -z "$DOCKER_VERBOSE" ]]; then
     echo "docker run $USER_OPTIONS $IMAGE $COMMAND";
   fi
@@ -149,10 +145,41 @@ for USER in $USERS; do
   ## Run command
   docker run $USER_OPTIONS $IMAGE $COMMAND;
   
-  ## Increment UPORT
+  ## Increment UPORT for next user
   UPORT=`echo $UPORT | awk '{s=$1+1; print s}'`;
  done
- ```
+```
 
 ## 2.3 Link Directories
+From within cloud9 terminal (*Note: 3rd command is currently commented. When you have a drive to mount, put it there*):
+
+```
 ln -s /workspace/home/tfuser/ /home/
+mkdir -p /mnt/
+#ln -s /workspace/mnt/$MOUNT_DIR/ /mnt
+mkdir ~/.ssh/
+ln -s /workspace/home/tfuser/creds/ssh_config ~/.ssh/config
+```
+
+Now, what is this doing?
+For simplicity, I will append c9 to any path on the cloud9 instance and ubuntu for the machine hosting the cloud9 instance.
+
+### 2.3.1 Mapping shared user space
+The first line of code will soft link `c9:/home -> c9:/workspace/home/tfuser`.
+However, remember from our VOLUME map `c9:/workspace/home == ubuntu:/home`.
+
+Thus, this first line is equivalent to the following:
+```
+ln -s ubuntu:/home/tfuser c9:/home/
+```
+
+The consequence is `c9:/home -> ubuntu:/home/tfuser`.
+
+
+## 2.3.2 Mounting a mount
+This will create a directory `c9:/mnt` and mount `c9:/mnt -> ubuntu:/home/mnt/$MOUNT_DIR`.
+
+## 2.3.3 Copying .ssh
+The `tfuser` .ssh config has a lot of valuable info we want replicate so we copy it into c9:~/.ssh
+
+
