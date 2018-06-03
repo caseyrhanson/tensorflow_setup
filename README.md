@@ -11,10 +11,11 @@ sudo apt install apt-transport-https ca-certificates curl software-properties-co
 
 Create a new file for the Docker repository at /etc/apt/sources.list.d/docker.list. In that file, place one of the following lines choosing either stable, nightly or edge builds:
 
-`=STABLE (NOT YET AVAILABLE!), please check availabilty before using:
-deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable
-EDGE:
-deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic edge
-NIGHTLY:
-deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic nightly
-`
+### Bionic stable, edge, nightly builds
+Please check availabilty before using:
+deb [arch=amd64]
+
+1. STABLE (NOT YET AVAILABLE!): https://download.docker.com/linux/ubuntu 
+2. EDGE: https://download.docker.com/linux/ubuntu 
+3. NIGHTLY:https://download.docker.com/linux/ubuntu
+````
