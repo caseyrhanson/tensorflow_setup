@@ -6,7 +6,7 @@ Following the example here: https://linuxconfig.org/how-to-install-docker-on-ubu
 
 ### 1.1 Get Certificates
 
-```
+```bash
 sudo apt update
 
 sudo apt install apt-transport-https ca-certificates curl software-properties-common
@@ -24,7 +24,7 @@ NIGHTLY:
 deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic nightly
 ```
 
-For example:
+For example, to add the Bionic Stable build:
 ```
 sudo echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable" >> /etc/apt/sources.list.d/docker.list
 ```
@@ -32,7 +32,7 @@ sudo echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stab
 ### 1.3 Add GPG Key
 You now need the GNU Privacy Guard (GPG) key. Download and add it as follows:
 
-```
+```bash
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 ```
 
