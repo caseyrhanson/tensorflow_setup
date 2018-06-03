@@ -100,3 +100,23 @@ docker build -t opal/cloud9:1.0 ./
 docker login
 docker push opal/cloud9:1.0
 ```
+# 3.0 Add Users
+## 3.1 Environment Variables
+```bash
+C9PASS="tmppass"
+C9NAME="opal/cloud9:1.0"
+USERS="crhanso2 blatti"
+UPORT=8081
+DOCKER_ARGS="  --restart=always --privileged"
+DOCKER_ARGS+=" -v /var/run/docker.sock:/var/run/docker.sock"
+DOCKER_ARGS+=" -v $(which docker):$(which docker)"
+DOCKER_ARGS+=" -v /home/tfuser:/workspace/tfuser"
+
+for USER in $USERS; do
+  USER_ARGS="  --name c9-$USER -h c9-$USER -p $UPORT:8181 -v /home/$USER:/workspace $C9NAME";
+  USER_ARGS+=" --auth $USER:$C9PASS --collab -a $USER:$C9PASS";
+  docker run -d USER_ARGS $DOCKER_ARGS 
+  UPORT=`echo $UPORT | awk '{s=$1+1; print s}'`;
+    
+
+}
