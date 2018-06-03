@@ -48,16 +48,40 @@ OK
 
 Once you have the key, re-update Apt:
 ```bash
-sudo apt update
-
+sudo apt-get update
 ```
-### 1.4 Install Docker Community Edition (CE)
+
+*** Optional: Check apt-policy***
+The `apt-cache policy` comamnd displays the priorities of package sources as well as those of individual packages
+```bash
+apt-cache policy docker-ce
+```
+
+### 1.4 Install and Verify Docker Community Edition (CE)
 
 We can now install docker ce:
 
 ```bash
-sudo apt install docker-ce
+sudo apt-get install -y docker-ce
 ```
 
+Verify the version:
 
+```bash
+docker --version
+```
 
+The output:
+```bash
+Docker version 18.03.1-ce, build 9ee9f40
+```
+### 1.5 Summary 
+
+The following can be run in one swoop:
+
+```bash
+sudo apt update
+sudo apt install apt-transport-https ca-certificates curl software-properties-common
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu artful stable"
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo apt-get update
