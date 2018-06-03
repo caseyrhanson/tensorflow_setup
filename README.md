@@ -13,20 +13,10 @@ sudo apt install apt-transport-https ca-certificates curl software-properties-co
 ```
 ### 1.2 Bionic stable, edge, nightly builds to sources.list
 
-Create a new file for the Docker repository at `/etc/apt/sources.list.d/docker.list`. In that file, place one of the following lines choosing either stable, nightly or edge builds:
+Add to apt-repo either stable, edge, or nightly.
 
 ```
-STABLE (NOT YET AVAILABLE!), please check availabilty before using:
-deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable
-EDGE:
-deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic edge
-NIGHTLY:
-deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic nightly
-```
-
-For example, to add the Bionic Stable build:
-```
-sudo echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable" >> /etc/apt/sources.list.d/docker.list
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 ```
 
 ### 1.3 Add GPG Key
