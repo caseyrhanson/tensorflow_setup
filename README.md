@@ -30,7 +30,11 @@ sudo echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stab
 ```
 
 ### 1.3 Add GPG Key
+You now need the GNU Privacy Guard (GPG) key. Download and add it as follows:
 
 ```
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 ```
+
+Ther return value should be
+```OK```
