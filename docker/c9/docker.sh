@@ -23,7 +23,7 @@ for USER in $USERS; do
   ## Run verbose 
   if [[ ! -z "$DOCKER_VERBOSE" ]]; then
     echo "Running docker run command for $USER on $UPORT:";
-    echo "  docker run -d $USER_ARGS $DOCKER_ARGS
+    echo "  docker run -d $USER_ARGS $DOCKER_ARGS";
   fi
   
   ## Run command
