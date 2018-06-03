@@ -6,7 +6,7 @@
 FROM sapk/cloud9
 
 # File Author / Maintainer
-MAINTAINERS Casey Hanson
+MAINTAINER Casey Hanson
 
 # Update the repository sources list
 RUN apt-get update && apt-get install -y time \
