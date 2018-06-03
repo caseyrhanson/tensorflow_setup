@@ -45,9 +45,7 @@ RUN pip install s3cmd \
     numpy \
     pandas \
     requests \
-    blessings \
-    matplotlib \
-    scipy
+    blessings
 
 # Set default contain command on run
 CMD /bin/bash
