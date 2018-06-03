@@ -132,7 +132,7 @@ DOCKER_VERBOSE="yes"
 OPTIONS="-d --restart=always --privileged";
 VOLUMES="-v /var/run/docker.sock:/var/run/docker.sock";
 VOLUMES+=" -v $(which docker):$(which docker)";
-VOLUMES+=" -v /workspace/tfuser:/workspace/home";
+VOLUMES+=" -v /workspace/shared:/workspace/shared";
 
 ## Iterate over all users - in this case crhanso2 and blatti
 for USER in $USERS; do
