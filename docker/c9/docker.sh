@@ -1,10 +1,17 @@
 #!/bin/bash
 
+# Name of image
 IMAGE="caseyrhanson/opal_c9:1.0"
-C9PASS="tmppass"
-USERS="crhanso2 blatti"
+# Set the password of each user or it will be set to tmppass
+if [[ -z "$C9PASS" ]]; then
+	C9PASS="tmppass"
+fi
+## Put a space separated list of users here
+USERS="crhanso2"
+## The starting point for the first user in USERS, to be incremented in loop
 UPORT=8081
-DOCKER_VERBOSE="yes"
+## If yes, print docker run command
+VERBOSE="yes"
 
 ## Docker ARGS common to all users
 OPTIONS="-d --restart=always --privileged";
@@ -21,7 +28,7 @@ for USER in $USERS; do
 	COMMAND="--auth $USER:$C9PASS";
   
   ## Run verbose  output
-  if [[ ! -z "$DOCKER_VERBOSE" ]]; then
+  if [[ ! -z "$VERBOSE" ]]; then
     echo "docker run $USER_OPTIONS $IMAGE $COMMAND";
   fi
   
