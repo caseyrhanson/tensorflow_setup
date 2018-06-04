@@ -163,6 +163,8 @@ ln -s /workspace/home/tfuser/creds/ssh_config ~/.ssh/config
 
 Now, what is this doing?
 For simplicity, I will append c9 to any path on the cloud9 instance and ubuntu for the machine hosting the cloud9 instance.
+*Note:* You may want to put `~/.c9/user.settings` in a permanent path like `c9:/workspace/home/USER/home/.9/user.settings`.
+The same goes for `~/.bashrc ~/.profile ~/.vimrc`, as these will be wiped after each restart of the service.
 
 ### 2.3.1 Mapping shared user space
 The first line of code will soft link `c9:/home -> c9:/workspace/home/tfuser`.
