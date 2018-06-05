@@ -2,7 +2,7 @@
 
 Following the example here: https://www.tensorflow.org/install/install_linux
 
-# 1.0 Install CUDA
+# 1.0 CUDA
 
 ## 1.1 Nvidia-Cuda-Toolkit
 First we need to download the `nivida-cuda-toolkit`
@@ -13,7 +13,7 @@ sudo apt install nvidia-cuda-toolkit
 
 This will install a lot of files in `/usr` like `/usr/lib/cuda` and `/usr/bin/cuda`. The version here is 9.1, but the cuda version we will install can be < 9.1 (I think).
 
-## 1.2 CUDA
+## 1.2 Install CUDA
 Check with the tensorflow website for the version of cuda corresponding to your release. The newest tf release (1.8) is compatible with 9.0. 
 
 Head to https://developer.nvidia.com/cuda-toolkit-archive and find the latest release corresponding to your target cuda version.
@@ -48,7 +48,7 @@ export CUDA_HOME='/usr/local/cuda`
 
 # 2.0 cuDNN
 
-## Instal cuDNN
+## 2.1 Install cuDNN
 
 To install `cudnn` head to https://developer.nvidia.com/rdp/cudnn-archive (login and everything) and check out the cuDNN version corresponding to your version of tensorflow. For us, that is v7.0. Find the link to the latest v7.0.x version for your CUDA version (9.0).
 
@@ -68,7 +68,7 @@ sudo dpkg -i libcudnn7_7.0.5.15-1+cuda9.0_amd64.deb
 sudo dpkg -i libcudnn7-dev_7.0.5.15-1+cuda9.0_amd64.deb
 sudo dpkg -i libcudnn7-doc_7.0.5.15-1+cuda9.0_amd64.deb
 ```
-# 2.1 Verify cuDNN
+## 2.1 Verify cuDNN
 
 The TensorFlow website says to set `$CUDA_HOME`, but we did that in the last section.
 
@@ -101,7 +101,7 @@ sudo ln -s /usr/bin/g++-6 /usr/local/cuda/bin/g++
 ```
 HatTip to https://devtalk.nvidia.com/default/topic/1032269/cuda-9-gcc-7-compatibility-with-nvcc/ ,which I found after a lot of Googling. The test should pass after this.
 
-# 3 GPU Card and Drivers
+# 3.0 GPU Card and Drivers
 
 Just Make sure your GPU card meets the compatibility requirements and you have installed the correct GPU drivers. Ubuntu Software & Update can let you change the driver to Nvidia's propietary. You can also do this on the command line.
 
@@ -132,7 +132,7 @@ To later allow upgrades, you can remove the hold:
 sudo apt-mark unhold libcudnn7 libcudnn7-dev
 ```
 
-# 4.0 Installing TensorFlow
+# 4.0 TensorFlow
 
 I chose to install TensorFlow via pip on python 3.6. To update python3 for this, do the following:
 
@@ -147,7 +147,7 @@ Install TensorFlow by doing one of the following:
 pip3 install tensorflow-gpu 
 ```
 
-## 4.2 Download pre-built code
+## 4.2 Download pre-built code and install
 
 If 4.1 failed, go to this location and find the matching URL for your python installation and CPU/GPU situation.
 
