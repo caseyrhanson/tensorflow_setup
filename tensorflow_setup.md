@@ -14,7 +14,7 @@ sudo apt install nvidia-cuda-toolkit
 This will install a lot of files in `/usr` like `/usr/lib/cuda` and `/usr/bin/cuda`. The version here is 9.1, but the cuda version we will install can be < 9.1 (I think).
 
 ## 1.2 Install CUDA
-Check with the tensorflow website for the version of cuda corresponding to your release. The newest tf release (1.8) is compatible with 9.0. 
+Check with the tensorflow website for the version of cuda corresponding to your release. The newest tf release (1.12) is compatible with 9.0. 
 
 Head to https://developer.nvidia.com/cuda-toolkit-archive and find the latest release corresponding to your target cuda version.
 
