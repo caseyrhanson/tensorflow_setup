@@ -31,8 +31,8 @@ You will then want to add the packages via `dpkg -i`. You will also want to inst
 sudo dpkg -i cuda-repo-ubuntu1704-9-0-local_9.0.176-1_amd64.deb
 sudo dpkg -i cuda-repo-ubuntu1704-9-0-local-cublas-performance-update_1.0-1_amd64.deb
 sudo dpkg -i cuda-repo-ubuntu1704-9-0-local-cublas-performance-update-2_1.0-1_amd64.deb
-sudo dpkg -i cuda-repo-ubuntu1604-9-0-176-local-patch-4_1.0-1_amd64.deb
-sudo dpkg -i cuda-repo-ubuntu1604-9-0-local-cublas-performance-update-3_1.0-1_amd64.deb
+sudo dpkg -i cuda-repo-ubuntu1704-9-0-176-local-patch-4_1.0-1_amd64.deb 
+sudo dpkg -i cuda-repo-ubuntu1704-9-0-local-cublas-performance-update-3_1.0-1_amd64.deb 
 sudo apt-key add /var/cuda-repo-<version>/7fa2af80.pub
 sudo apt-get update && sudo apt-get install cuda
 ```
