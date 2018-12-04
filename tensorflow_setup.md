@@ -1,4 +1,4 @@
-# Installing TensorFlow on Ubuntu 18.04
+# Installing TensorFlow 1.12 on Ubuntu 18.04
 
 Following the example here: https://www.tensorflow.org/install/install_linux
 
@@ -23,7 +23,7 @@ For this tutorial, I will choose `CUDA Toolkit 9.0 (Sept 2017)` which links to h
 For this exercise, we selected the following `Linux x86_64 Ubuntu 1704 deblocal`. The reason we chose 17.04 and not 18.04, is because at the time of this tutorial it wasn't available. The links is below:
 https://developer.nvidia.com/cuda-90-download-archive?target_os=Linux&target_arch=x86_64&target_distro=Ubuntu&target_version=1704&target_type=deblocal
 
-This will take you to a page with a base installer and instructions, and possibly (in this case 2) patches. Go ahead and download all debian packages.
+This will take you to a page with a base installer and instructions, and possibly (in this case 4) patches. Go ahead and download all debian packages.
 
 You will then want to add the packages via `dpkg -i`. You will also want to install the cuda key which the website gives you as well as the `dpkg` output for the base cuda package.
 
@@ -31,6 +31,8 @@ You will then want to add the packages via `dpkg -i`. You will also want to inst
 sudo dpkg -i cuda-repo-ubuntu1704-9-0-local_9.0.176-1_amd64.deb
 sudo dpkg -i cuda-repo-ubuntu1704-9-0-local-cublas-performance-update_1.0-1_amd64.deb
 sudo dpkg -i cuda-repo-ubuntu1704-9-0-local-cublas-performance-update-2_1.0-1_amd64.deb
+sudo dpkg -i cuda-repo-ubuntu1604-9-0-176-local-patch-4_1.0-1_amd64.deb
+sudo dpkg -i cuda-repo-ubuntu1604-9-0-local-cublas-performance-update-3_1.0-1_amd64.deb
 sudo apt-key add /var/cuda-repo-<version>/7fa2af80.pub
 sudo apt-get update && sudo apt-get install cuda
 ```
