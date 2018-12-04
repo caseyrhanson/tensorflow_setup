@@ -2,9 +2,9 @@
 
 Following the example here: https://www.tensorflow.org/install/install_linux
 
-# 1.0 CUDA
+# CUDA
 
-## 1.1 Nvidia-Cuda-Toolkit
+## Nvidia-Cuda-Toolkit
 First we need to download the `nivida-cuda-toolkit`
 
 ```
@@ -13,7 +13,7 @@ sudo apt install nvidia-cuda-toolkit
 
 This will install a lot of files in `/usr` like `/usr/lib/cuda` and `/usr/bin/cuda`. The version here is 9.1, but the cuda version we will install can be < 9.1 (I think).
 
-## 1.2 Install CUDA
+## Install CUDA
 Check with the tensorflow website for the version of cuda corresponding to your release. The newest tf release (1.12) is compatible with 9.0. 
 
 Head to https://developer.nvidia.com/cuda-toolkit-archive and find the latest release corresponding to your target cuda version.
@@ -39,7 +39,7 @@ sudo apt-get update && sudo apt-get install cuda
 
 Without the `nvidia-cuda-toolkit`, this step failed in the past.
 
-## 1.3 Environment Variables and Misc
+## Environment Variables and Misc
 
 Following the tensorflow instructions, head to https://docs.nvidia.com/cuda/cuda-installation-guide-linux/ and make sure you haven't missed any steps.
 
@@ -48,9 +48,9 @@ Put the following in your .bashrc
 export CUDA_HOME='/usr/local/cuda`
 ```
 
-# 2.0 cuDNN
+# cuDNN
 
-## 2.1 Install cuDNN 7.4.1
+## Install cuDNN 7.4.1
 
 To install `cudnn` head to https://developer.nvidia.com/rdp/cudnn-archive (login and everything) and check out the cuDNN version corresponding to your version of tensorflow. For us, that is v7.0. Find the link to the latest v7.0.x version for your CUDA version (9.0).
 
@@ -68,12 +68,14 @@ Basically, do `dpkg -i` on each of the downloaded cuDNN debian packages. Note th
 ```
 sudo dpkg -i libcudnn7_7.4.1.5-1+cuda9.0_amd64.deb      
 sudo dpkg -i libcudnn7-dev_7.4.1.5-1+cuda9.0_amd64.deb 
-sudo dpkg -i libcudnn7-doc_7.4.1.5-1+cuda9.0_amd64.deb 
+sudo dpkg -i libcudnn7-doc_7.4.1.5-1+cuda9.0_amd64.deb
+sudo apt-get update && sudo apt-get upgrade
 ```
 
 Note that after -dev, i got this note. I'm not sure what to do with it.
 `update-alternatives: using /usr/include/x86_64-linux-gnu/cudnn_v7.h to provide /usr/include/cudnn.h (libcudnn) in auto mode`.
-## 2.1 Verify cuDNN
+
+## Verify cuDNN
 
 The TensorFlow website says to set `$CUDA_HOME`, but we did that in the last section.
 
@@ -106,7 +108,7 @@ sudo ln -s /usr/bin/g++-6 /usr/local/cuda/bin/g++
 ```
 HatTip to https://devtalk.nvidia.com/default/topic/1032269/cuda-9-gcc-7-compatibility-with-nvcc/ ,which I found after a lot of Googling. The test should pass after this.
 
-# 3.0 GPU Card and Drivers
+# GPU Card and Drivers
 
 Just Make sure your GPU card meets the compatibility requirements and you have installed the correct GPU drivers. Ubuntu Software & Update can let you change the driver to Nvidia's propietary. You can also do this on the command line.
 
@@ -116,12 +118,14 @@ TensorFlow also says to do this but it didn't work, and I didn't notice it being
 sudo apt-get install cuda-command-line-tools
 ```
 
-## 3.1 *Optional: NVIDIA TensorRT 3.0 Fast*
+# NVIDIA TensorRT 4.0.1.6 Fast
 
+## NOTE THIS DOESN"T WORK WITH PYTHON 3.6
 TensorFlow says you can do the following to increase inference speed (don't worry about it being 14.04, TensorFlow claims):
 
 ```
-wget https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1404/x86_64/nvinfer-runtime-trt-repo-ubuntu1404-3.0.4-ga-cuda9.0_1.0-1_amd64.deb
+wget https://developer.nvidia.com/compute/machine-learning/tensorrt/4.0/ga/nv-tensorrt-repo-ubuntu1604-cuda9.0-ga-trt4.0.1.6-20180612_1-1_amd64
+sudo apt-get update && sudo apt-get install tensorrt
 sudo dpkg -i nvinfer-runtime-trt-repo-ubuntu1404-3.0.4-ga-cuda9.0_1.0-1_amd64.deb
 sudo apt-get update
 sudo apt-get install -y --allow-downgrades libnvinfer-dev libcudnn7-dev=7.0.5.15-1+cuda9.0 libcudnn7=7.0.5.15-1+cuda9.0
@@ -137,7 +141,7 @@ To later allow upgrades, you can remove the hold:
 sudo apt-mark unhold libcudnn7 libcudnn7-dev
 ```
 
-# 4.0 TensorFlow
+# TensorFlow
 
 I chose to install TensorFlow via pip on python 3.6. To update python3 for this, do the following:
 
@@ -147,14 +151,14 @@ sudo apt-get install python3-pip python3-dev
 
 Install TensorFlow by doing one of the following:
 
-## 4.1 pip3 install
+## pip3 install
 ```
-pip3 install tensorflow-gpu 
+pip3 install --upgrade tensorflow-gpu 
 ```
 
-## 4.2 Download pre-built code and install
+## Download pre-built code and install
 
-If 4.1 failed, go to this location and find the matching URL for your python installation and CPU/GPU situation.
+If pip3 failed, go to this location and find the matching URL for your python installation and CPU/GPU situation.
 
 https://www.tensorflow.org/install/install_linux#the_url_of_the_tensorflow_python_package
 
@@ -163,10 +167,8 @@ For me, it was 3.6 GPU.
 Then download the file from the url and upgrade from the file.
 
 ```
-sudo pip3 install --upgrade https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-1.8.0-cp36-cp36m-linux_x86_64.whl
+sudo pip3 install --upgrade https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-1.12.0-cp36-cp36m-linux_x86_64.whl
 ```
-
-*Note: I believe I did both 4.1 and 4.2. This is not necessary, I think.*
 
 If you have other problems, go here https://www.tensorflow.org/install/install_linux#common_installation_problems
 
@@ -185,7 +187,29 @@ import tensorflow as tf
 print(tf.__version__)
 ```
 
-You should see 1.8. If so, execute the following program:
+You should see 1.12
+
+## Sample Program 1
+
+`sudo python3 -c "import tensorflow as tf; tf.enable_eager_execution(); print(tf.reduce_sum(tf.random_normal([1000, 1000])))"`
+
+Output
+
+```
+2018-12-04 14:15:25.075859: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2018-12-04 14:15:25.624567: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:964] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2018-12-04 14:15:25.624878: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1432] Found device 0 with properties: 
+name: GeForce GTX 1080 major: 6 minor: 1 memoryClockRate(GHz): 1.7335
+pciBusID: 0000:01:00.0
+totalMemory: 7.93GiB freeMemory: 7.81GiB
+2018-12-04 14:15:25.624892: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2018-12-04 14:15:26.693007: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2018-12-04 14:15:26.693038: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2018-12-04 14:15:26.693051: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2018-12-04 14:15:26.693210: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 7534 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080, pci bus id: 0000:01:00.0, compute capability: 6.1)
+tf.Tensor(-1600.6327, shape=(), dtype=float32)
+```
+## Sample Program 2
 
 ```python
 import tensorflow as tf
