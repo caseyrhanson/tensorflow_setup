@@ -50,26 +50,29 @@ export CUDA_HOME='/usr/local/cuda`
 
 # 2.0 cuDNN
 
-## 2.1 Install cuDNN
+## 2.1 Install cuDNN 7.4.1
 
 To install `cudnn` head to https://developer.nvidia.com/rdp/cudnn-archive (login and everything) and check out the cuDNN version corresponding to your version of tensorflow. For us, that is v7.0. Find the link to the latest v7.0.x version for your CUDA version (9.0).
 
 From the drop down menu:
 
 Go ahead and download all ubuntu debian packages (they only have 16.04 packages for runtime and development):
-1. cuDNN v7.0.5 Runtime Library for Ubuntu16.04 (Deb): https://developer.nvidia.com/compute/machine-learning/cudnn/secure/v7.0.5/prod/9.0_20171129/Ubuntu16_04-x64/libcudnn7_7.0.5.15-1+cuda9.0_amd64
-2. cuDNN v7.0.5 Developer Library for Ubuntu16.04 (Deb): https://developer.nvidia.com/compute/machine-learning/cudnn/secure/v7.0.5/prod/9.0_20171129/Ubuntu16_04-x64/libcudnn7-dev_7.0.5.15-1+cuda9.0_amd64
-3. cuDNN v7.0.5 Code Samples and User Guide for Ubuntu16.04 (Deb): https://developer.nvidia.com/compute/machine-learning/cudnn/secure/v7.0.5/prod/9.0_20171129/Ubuntu16_04-x64/libcudnn7-doc_7.0.5.15-1+cuda9.0_amd64
+1. cuDNN v7.4.1 Runtime Library for Ubuntu16.04 (Deb): https://developer.nvidia.com/compute/machine-learning/cudnn/secure/v7.4.1.5/prod/9.0_20181108/Ubuntu16_04-x64/libcudnn7_7.4.1.5-1%2Bcuda9.0_amd64.deb
+2. cuDNN v7.4.1 Developer Library for Ubuntu16.04 (Deb): https://developer.nvidia.com/compute/machine-learning/cudnn/secure/v7.4.1.5/prod/9.0_20181108/Ubuntu16_04-x64/libcudnn7-dev_7.4.1.5-1%2Bcuda9.0_amd64.deb
+3. cuDNN v7.4.1 Code Samples and User Guide for Ubuntu16.04 (Deb): https://developer.nvidia.com/compute/machine-learning/cudnn/secure/v7.4.1.5/prod/9.0_20181108/Ubuntu16_04-x64/libcudnn7-doc_7.4.1.5-1%2Bcuda9.0_amd64.deb
 
-Open the Install guide (https://developer.nvidia.com/compute/machine-learning/cudnn/secure/v7.0.5/prod/Doc/cuDNN-Installation-Guide) and goto the appropriate section for local debian packages on Ubuntu (2.3.2)
+Open the Install guide (https://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html) and goto the appropriate section for local debian packages on Ubuntu.
 
 Basically, do `dpkg -i` on each of the downloaded cuDNN debian packages. Note the actual filenames may differ from the installation guide.
 
 ```
-sudo dpkg -i libcudnn7_7.0.5.15-1+cuda9.0_amd64.deb
-sudo dpkg -i libcudnn7-dev_7.0.5.15-1+cuda9.0_amd64.deb
-sudo dpkg -i libcudnn7-doc_7.0.5.15-1+cuda9.0_amd64.deb
+sudo dpkg -i libcudnn7_7.4.1.5-1+cuda9.0_amd64.deb      
+sudo dpkg -i libcudnn7-dev_7.4.1.5-1+cuda9.0_amd64.deb 
+sudo dpkg -i libcudnn7-doc_7.4.1.5-1+cuda9.0_amd64.deb 
 ```
+
+Note that after -dev, i got this note. I'm not sure what to do with it.
+`update-alternatives: using /usr/include/x86_64-linux-gnu/cudnn_v7.h to provide /usr/include/cudnn.h (libcudnn) in auto mode`.
 ## 2.1 Verify cuDNN
 
 The TensorFlow website says to set `$CUDA_HOME`, but we did that in the last section.
